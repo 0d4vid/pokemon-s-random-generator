@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: rgb(59, 59, 59);
+        }
+        .container {
+            margin: 0 auto;
+            margin: 20px auto;
+            background-color: rgb(59, 59, 59);
+            padding: 80px;
+            text-align: center;
+            
+        }
+        .btn {
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #5862e6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .case {
+           
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            width: 500px;
+            height: 300px;
+            margin: 0 auto;
+            text-align: center;
+            border-radius: 10px;
+            background-color: rgba(240, 240, 240, 0.61);
+            
+        }
+        img {
+            height: 200px;
+            width: 200px;
+            padding: 10px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        p {
+            margin: 0;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1><b>Pokemon's Random Generation</b></h1>
+        <div class="btn">
+            <button id="p-btn" onclick="Generate()">Generate</button>
+        </div>
+        <div class="case">
+            <img src="https://via.placeholder.com/150" alt="error" id="p-image">
+            <p id="p-id">id:   </p>
+            <p id="p-name">name:  </p>
+        </div>
+    </div>
+    <script>
+            const Btn = document.querySelector('p-btn');
+            const Case = document.querySelector('.case');
+            const Id = document.querySelector('#p-id');
+            const Name = document.querySelector('#p-name');
+            const Image = document.querySelector('#p-image');
+        async function Generate() {
+            const rd = Math.floor(Math.random() * 1025) + 1;
+            console.log(rd);
+            const endpoint = "https://pokeapi.co/api/v2/pokemon/" + rd;
+            const response = await fetch(endpoint);
+            const data = await response.json();
+            Id.textContent = "Id: " + rd;
+            Name.textContent = "Name: " + data.species.name;
+            Image.src = data.sprites.front_default;
+            Case.style.display = 'block';       
+        }
+    </script>
+</body>
+</html>
